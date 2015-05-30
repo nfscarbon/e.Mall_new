@@ -32,7 +32,7 @@ import utils.PrefUtils;
  * Created by ratnav on 18-04-2015.
  */
 public class SendMail extends Activity {
-
+// hi i am KK
     Vector<Integer> v_id, v_id_msgType;
     Spinner spinner_cmpytype, spinner_msgtype;
     Button btn_submit;
