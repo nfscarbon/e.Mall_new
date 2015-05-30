@@ -69,6 +69,8 @@ public class SendMail extends Activity implements Listener_service {
 
             }
         });
+
+
         spinner_msgtype = (Spinner) findViewById(R.id.spinner_msgtype);
         spinner_msgtype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -83,6 +85,8 @@ public class SendMail extends Activity implements Listener_service {
 
             }
         });
+
+        getCom();
         btn_submit = (Button) findViewById(R.id.btn_submit);
 
         edittext_subject = (EditText)
@@ -90,14 +94,14 @@ public class SendMail extends Activity implements Listener_service {
         edittext_description = (EditText) findViewById(R.id.edittext_description);
         edittext_description.setPadding(20, 20, 20, 20);
         edittext_subject.setPadding(20, 20, 20, 20);
-        getCom();
+
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((edittext_description.getText().toString() == null && edittext_description.getText().toString().length() < 2)) {
+                if ((edittext_description.getText().toString() == null || edittext_description.getText().toString().length() < 2)) {
                     edittext_description.setError("Please enter body");
-                } else if ((edittext_subject.getText().toString() == null && edittext_subject.getText().toString().length() < 2)) {
+                } else if ((edittext_subject.getText().toString() == null || edittext_subject.getText().toString().length() < 2)) {
                     edittext_subject.setError("Please enter subject");
                 } else {
                     sendMial();
@@ -109,7 +113,25 @@ public class SendMail extends Activity implements Listener_service {
 
 
     public void getCom() {
-//
+
+
+
+        JSONObject object = new JSONObject();
+        try {
+
+            object.put("SimNumber", new PrefUtils().getFromPrefs(getApplicationContext().getApplicationContext(), PrefUtils.SimNumber, ""));
+            object.put("UDID", new PrefUtils().getFromPrefs(getApplicationContext().getApplicationContext(), PrefUtils.UDID, ""));
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+       new PostData(2,object.toString(),"GetCompany",SendMail.this).execute();
+
+    }
+
+    public void getMailType() {
+
 
 
         JSONObject object = new JSONObject();
@@ -121,40 +143,9 @@ public class SendMail extends Activity implements Listener_service {
 
         } catch (Exception e) {
         }
-       new PostData(2,object.toString(),"GetCompany",SendMail.this);
 
-    }
+        new PostData(3, object.toString(), "GetMailType", SendMail.this).execute();
 
-    public void getMailType() {
-
-        SoapObject obj = new SoapObject("http://tempuri.org/", "GetMailType");
-
-        JSONObject object = new JSONObject();
-        try {
-
-            object.put("SimNumber", new PrefUtils().getFromPrefs(getApplicationContext().getApplicationContext(), "SimNumber", ""));
-            object.put("UDID", new PrefUtils().getFromPrefs(getApplicationContext().getApplicationContext(), "UDID", ""));
-
-
-        } catch (Exception e) {
-        }
-        PropertyInfo mPropertyInfo = new PropertyInfo();
-        mPropertyInfo.setName("data");
-        mPropertyInfo.setValue(object.toString());
-        obj.addProperty(mPropertyInfo);
-//        Listener_service Listener_service = new Listener_service() {
-//            @Override
-//            public void onRequestSuccess(int method, String response) {
-//
-//                setUpSpinner(method, response);
-//            }
-//
-//            @Override
-//            public void onRequestFail(int method, String message) {
-//
-//            }
-//        };
-//        new PostData_fragment(1, obj, "GetMailType", SendMail.this, Listener_service).execute();
 
     }
 
@@ -189,7 +180,8 @@ public class SendMail extends Activity implements Listener_service {
     public void setUpSpinner(int method, String response) {
         switch (method) {
 
-            case 0:
+            // SetUp cmp
+            case 2:
                 try {
                     JSONArray array = new JSONArray(response);
                     String[] items = new String[array.length() - 1];
@@ -228,7 +220,7 @@ public class SendMail extends Activity implements Listener_service {
                 }
                 break;
 
-            case 1:
+            case 3:
                 try {
                     JSONArray array = new JSONArray(response);
                     String[] items = new String[array.length()];
@@ -298,10 +290,21 @@ public class SendMail extends Activity implements Listener_service {
             //Get Company Name
             // Setup First Spinner
             case 2:
-                getMailType();
+
                 setUpSpinner(method, response);
+                SendMail.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        getMailType();
+                    }
+                });
+
+
                 break;
 
+            case 3:
+                setUpSpinner(method, response);
+                break;
         }
     }
 
