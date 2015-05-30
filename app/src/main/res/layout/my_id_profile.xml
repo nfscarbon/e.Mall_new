@@ -224,7 +224,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="#00000000"
-                            android:hint="Emai id"
+                            android:hint="Email id"
                             android:padding="5dp"
                             android:singleLine="true"
                             android:text=""
