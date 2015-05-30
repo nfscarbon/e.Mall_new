@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -66,11 +67,13 @@ public class MailBox extends ActionBarActivity implements Listener_service {
     public void init() {
         tv_mails = (TextView) findViewById(R.id.tv_mails);
         tv_mails.setTypeface(mFonts.arial_bold());
+        tv_mails.setText(Html.fromHtml("<p><u>Mails</u></p>"));
         tv_announcements = (TextView) findViewById(R.id.tv_announcements);
         tv_announcements.setTypeface(mFonts.arial_bold());
         tv_announcements.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 getAnnouncements();
             }
         });
@@ -112,13 +115,24 @@ public class MailBox extends ActionBarActivity implements Listener_service {
 
         list_mail = (ListView) findViewById(R.id.list_mail);
         img_writemail = (ImageButton) findViewById(R.id.img_writemail);
+
         img_writemail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i_sendMial = new Intent(MailBox.this, SendMail.class);
                 startActivity(i_sendMial);
+                finish();
                 overridePendingTransition(0, 0);
 
+            }
+        });
+
+        tv_mails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MailBox.this, MailBox.class);
+                startActivity(i);
+                overridePendingTransition(0, 0);
             }
         });
         lv = (ListView) findViewById(R.id.list_mail);
@@ -192,6 +206,8 @@ public class MailBox extends ActionBarActivity implements Listener_service {
                         @Override
                         public void run() {
                             lv.setAdapter(adapter_Announcements_adapter);
+                            tv_announcements.setText(Html.fromHtml("<p><u>Announcements</u></p>"));
+                            tv_mails.setText(Html.fromHtml("<p>Mails</p>"));
                         }
                     });
 

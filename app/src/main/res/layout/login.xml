@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Welcome to e.mall\nLogin with e.mal and start redeemed your points!"
+        android:text="Welcome to e.Mall\nLogin with e.Mall and start redeemed your points!"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#dfdfdf"
 

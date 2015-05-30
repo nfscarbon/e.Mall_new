@@ -440,6 +440,7 @@ public class MyProfile extends ActionBarActivity implements Listener_service {
                     byte[] imageBytes = baos.toByteArray();
                     try {
                         object.put("ProfilePic", Base64.encodeToString(imageBytes, Base64.DEFAULT));
+
                         object.put("SimNumber", new PrefUtils().getFromPrefs(getApplicationContext(), new PrefUtils().SimNumber, ""));
                         object.put("UDID", new PrefUtils().getFromPrefs(getApplicationContext(), new PrefUtils().UDID, ""));
                         object.put("LoyltyId", new PrefUtils().getFromPrefs(getApplicationContext(), new PrefUtils().LoyaltyId, ""));

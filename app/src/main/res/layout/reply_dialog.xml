@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_root"
+    android:background="#FFF"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+
+
+    <EditText
+        android:gravity="top|left"
+        android:background="#FFF"
+        android:minLines="5"
+        android:maxLines="7"
+        android:padding="2dp"
+        android:id="@+id/inputText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        ></EditText>
+<LinearLayout
+    android:layout_below="@+id/inputText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <Button
+        android:layout_marginRight="5dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_signup"
+        android:textColor="#FFF"
+        android:id="@+id/bt_ok"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="Reply"></Button>
+    <Button
+        android:layout_marginLeft="5dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_signup"
+        android:textColor="#FFF"
+        android:id="@+id/bt_cancel"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="Cancel"></Button>
+</LinearLayout>
+
+
+</RelativeLayout>
