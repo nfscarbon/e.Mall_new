@@ -10,6 +10,7 @@ import android.widget.GridView;
 import android.widget.Spinner;
 
 import com.intigate.ratnav.emall_new.R;
+import com.intigate.setup.Login;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,6 +19,7 @@ import java.util.Vector;
 
 import listner.Listener_service;
 import listner.PostData;
+import listner.Toast;
 import utils.PrefUtils;
 
 /**
@@ -273,10 +275,26 @@ public class Offers extends Activity implements Listener_service {
     @Override
     public void onRequestFail(int method, String message) {
 
+        Offers.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                new Toast(getApplicationContext(), "Please check your N/w Connection").show();
+            }
+        });
+
     }
 
     @Override
     public void onStatus404() {
-
+        Offers.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                new Toast(getApplicationContext(), "You are a invalid user").show();
+                new PrefUtils().saveToPrefs(getApplicationContext(), "IsLoggedIn", "0");
+                Intent i = new Intent(Offers.this, Login.class);
+                startActivity(i);
+                finish();
+            }
+        });
     }
 }

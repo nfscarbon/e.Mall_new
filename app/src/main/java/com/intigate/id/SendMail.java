@@ -2,6 +2,7 @@ package com.intigate.id;
 
 import android.app.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -15,8 +16,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 
-
 import com.intigate.ratnav.emall_new.R;
+import com.intigate.setup.Login;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,20 +26,24 @@ import org.ksoap2.serialization.SoapObject;
 
 import java.util.Vector;
 
+import listner.Listener_service;
+import listner.PostData;
+import listner.Toast;
 import utils.PrefUtils;
 
 
 /**
  * Created by ratnav on 18-04-2015.
  */
-public class SendMail extends Activity {
-// hi i am KK
+public class SendMail extends Activity implements Listener_service {
+    // hi i am KK
     Vector<Integer> v_id, v_id_msgType;
     Spinner spinner_cmpytype, spinner_msgtype;
     Button btn_submit;
     EditText edittext_subject, edittext_description;
     int cmp_id, MailTypeID;
-// hi i am rd
+
+    // hi i am rd
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,35 +109,19 @@ public class SendMail extends Activity {
 
 
     public void getCom() {
+//
 
-        SoapObject obj = new SoapObject("http://tempuri.org/", "GetCompany");
 
         JSONObject object = new JSONObject();
         try {
 
-            object.put("SimNumber", new PrefUtils().getFromPrefs(getApplicationContext().getApplicationContext(), "SimNumber", ""));
-            object.put("UDID", new PrefUtils().getFromPrefs(getApplicationContext().getApplicationContext(), "UDID", ""));
+            object.put("SimNumber", new PrefUtils().getFromPrefs(getApplicationContext().getApplicationContext(), PrefUtils.SimNumber, ""));
+            object.put("UDID", new PrefUtils().getFromPrefs(getApplicationContext().getApplicationContext(), PrefUtils.UDID, ""));
 
 
         } catch (Exception e) {
         }
-        PropertyInfo mPropertyInfo = new PropertyInfo();
-        mPropertyInfo.setName("data");
-        mPropertyInfo.setValue(object.toString());
-        obj.addProperty(mPropertyInfo);
-//        Listener_service Listener_service = new Listener_service() {
-//            @Override
-//            public void onRequestSuccess(int method, String response) {
-//                getMailType();
-//                setUpSpinner(method, response);
-//            }
-//
-//            @Override
-//            public void onRequestFail(int method, String message) {
-//
-//            }
-//        };
-//        new PostData_fragment(0, obj, "GetCompany", SendMail.this, Listener_service).execute();
+       new PostData(2,object.toString(),"GetCompany",SendMail.this);
 
     }
 
@@ -172,13 +161,12 @@ public class SendMail extends Activity {
 
     public void sendMial() {
 
-        SoapObject obj = new SoapObject("http://tempuri.org/", "SendMail");
 
         JSONObject object = new JSONObject();
         try {
 
-            object.put("SimNumber", new PrefUtils().getFromPrefs(getApplicationContext().getApplicationContext(), "SimNumber", ""));
-            object.put("UDID", new PrefUtils().getFromPrefs(getApplicationContext().getApplicationContext(), "UDID", ""));
+            object.put("SimNumber", new PrefUtils().getFromPrefs(getApplicationContext().getApplicationContext(), PrefUtils.SimNumber, ""));
+            object.put("UDID", new PrefUtils().getFromPrefs(getApplicationContext().getApplicationContext(), PrefUtils.UDID, ""));
             object.put("isNew", true);
             object.put("ConversationID", 0);
             object.put("LoyltyID", new PrefUtils().getFromPrefs(getApplicationContext().getApplicationContext(), new PrefUtils().LoyaltyId, ""));
@@ -192,59 +180,9 @@ public class SendMail extends Activity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        PropertyInfo mPropertyInfo = new PropertyInfo();
-        mPropertyInfo.setName("data");
-        mPropertyInfo.setValue(object.toString());
-        obj.addProperty(mPropertyInfo);
-//        Listener_service Listener_service = new Listener_service() {
-//            @Override
-//            public void onRequestSuccess(int method, String response) {
-//
-//                SendMail.this.runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//
-//                        edittext_description.setText("");
-//                        edittext_subject.setText("");
-//
-//
-//                        LayoutInflater li = getLayoutInflater();
-//                        View layout = li.inflate(R.layout.customtoast,
-//                                (ViewGroup) findViewById(R.id.custom_toast_layout));
-//                        TextView tv_msg = (TextView) layout.findViewById(R.id.custom_toast_message);
-//                        tv_msg.setText("Mail has been sent. !");
-//
-//                        Toast toast = new Toast(getApplicationContext());
-//                        toast.setDuration(Toast.LENGTH_LONG);
-//                        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.TOP, 0, 40);
-//                        toast.setView(layout);
-//                        toast.show();
-//                        finish();
-//                    }
-//                });
-//
-//            }
-//
-//            @Override
-//            public void onRequestFail(int method, String message) {
-//                SendMail.this.runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                LayoutInflater li = getLayoutInflater();
-//                View layout = li.inflate(R.layout.customtoast,
-//                        (ViewGroup) findViewById(R.id.custom_toast_layout));
-//                TextView tv_msg = (TextView) layout.findViewById(R.id.custom_toast_message);
-//                tv_msg.setText("Unable To send Mail. !");
-//
-//                Toast toast = new Toast(getApplicationContext());
-//                toast.setDuration(Toast.LENGTH_LONG);
-//                toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.TOP, 0, 40);
-//                toast.setView(layout);
-//                toast.show();}});
-//
-//            }
-//        };
-//        new PostData_fragment(1, obj, "SendMail", SendMail.this, Listener_service).execute();
+
+        new PostData(1, object.toString(), "SendMail ", SendMail.this).execute();
+
 
     }
 
@@ -339,6 +277,58 @@ public class SendMail extends Activity {
         super.onBackPressed();
         finish();
         overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public void onRequestSuccess(int method, String response) {
+
+        switch (method) {
+            // Send Mail
+            case 1:
+                SendMail.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        new Toast(SendMail.this, "Mail has been sent!").show();
+                        edittext_description.setText("");
+                        edittext_subject.setText("");
+                    }
+                });
+
+                break;
+            //Get Company Name
+            // Setup First Spinner
+            case 2:
+                getMailType();
+                setUpSpinner(method, response);
+                break;
+
+        }
+    }
+
+    @Override
+    public void onRequestFail(int method, String message) {
+        SendMail.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                new Toast(getApplicationContext(), "Please check your N/w Connection").show();
+            }
+        });
+
+    }
+
+    @Override
+    public void onStatus404() {
+
+        SendMail.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                new Toast(getApplicationContext(), "You are a invalid user").show();
+                new PrefUtils().saveToPrefs(getApplicationContext(), "IsLoggedIn", "0");
+                Intent i = new Intent(SendMail.this, Login.class);
+                startActivity(i);
+                finish();
+            }
+        });
     }
 }
 
