@@ -45,6 +45,7 @@ import utils.QRCodeEncoder;
  */
 public class MyId extends ActionBarActivity implements Listener_service {
     TextView tv_title;
+    //bhag bhosadi k
     private static final int WHITE = 0xFFFFFFFF;
     private static final int BLACK = 0xFF000000;
     ImageView iv_qrcode, iv_barcode, iv_user;
