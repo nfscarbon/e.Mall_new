@@ -38,7 +38,7 @@ public class SendMail extends Activity {
     Button btn_submit;
     EditText edittext_subject, edittext_description;
     int cmp_id, MailTypeID;
-
+// hi i am rd
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
