@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/adapter_ll_mail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:background="#FFF"
+    android:gravity="top"
+    android:orientation="horizontal"
+    android:paddingRight="10dp"
+    android:paddingTop="5dp">
+
+    <View
+
+        android:id="@+id/view_status"
+        android:layout_width="5dp"
+        android:layout_height="match_parent"
+        android:visibility="gone"></View>
+
+    <ImageView
+        android:id="@+id/adapter_iv"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:id="@+id/adapter_iv_tv"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="A"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#fff"
+        android:visibility="gone" />
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/adapter_userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            android:text="Tim Gree"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/number_mails"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@+id/adapter_userName" />
+
+        <TextView
+            android:id="@+id/adapter_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="5dp"
+            android:text="2.50 PM"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+        <TextView
+            android:id="@+id/adapter_mail_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/adapter_userName"
+            android:layout_toLeftOf="@+id/adapter_imp"
+            android:text="Regarding test mail"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#b14c4c4c" />
+
+        <View
+            android:id="@+id/v_2"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_below="@+id/adapter_mail_title"></View>
+
+        <RelativeLayout
+            android:id="@+id/adapter_footer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/adapter_mail_title"
+            android:layout_marginBottom="5dp"
+
+            android:layout_toLeftOf="@+id/adapter_imp">
+
+            <TextView
+
+                android:id="@+id/adapter_tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="Hi whre "
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#b14c4c4c" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/adapter_imp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/adapter_time"
+            android:layout_alignRight="@+id/adapter_time"
+            android:layout_below="@+id/adapter_time"
+            android:padding="10dp"
+            android:src="@drawable/white_star" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

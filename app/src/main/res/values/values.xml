@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color  name="color_header">#00b0f0</color >
+    <color  name="color_white">#ffffffff</color >
+    <color  name="color_header_text">#7200b0f0</color >
+    <color  name="color_header_selected">#3700506b</color >
+    <color  name="color_text_color">#000</color >
+    <color name="color_footer">#ffd3d3d3</color>
+</resources>
