@@ -2,6 +2,7 @@ package com.intigate.id;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -13,25 +14,33 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.intigate.ratnav.emall_new.R;
+import com.intigate.setup.Login;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONObject;
+
+import listner.Listener_service;
+import listner.PostData;
+import listner.Toast;
 import utils.Fonts;
+import utils.PrefUtils;
 
 /**
  * Created by ratnav on 29-05-2015.
  */
-public class MailAdapter extends BaseAdapter {
+public class MailAdapter extends BaseAdapter implements Listener_service {
     MailHandler[] result;
     Activity context;
     private static LayoutInflater inflater = null;
     MailHandler mailHandler_;
     Holder holder;
     Fonts mFonts;
+    boolean bool;
 
     MailAdapter(Activity mainActivity, MailHandler[] list) {
 
         this.result = list;
-        mFonts=new Fonts(mainActivity);
+        mFonts = new Fonts(mainActivity);
         context = mainActivity;
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -110,10 +119,10 @@ public class MailAdapter extends BaseAdapter {
                     if (result[position].isImp()) {
                         result[position].setImp(false);
 
-                        //  markImp(position, false);
+                        markImp(position, false);
                     } else {
                         result[position].setImp(true);
-                        //  markImp(position, true);
+                        markImp(position, true);
 
                     }
 
@@ -150,20 +159,75 @@ public class MailAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
-//                result[position].setIsRead(true);
-//
-//                notifyDataSetChanged();
-//                Intent inte_detail = new Intent(context, Details_mail.class);
-//                inte_detail.putExtra("id", result[position].getConversationID());
-//                inte_detail.putExtra("isImp", result[position].isImp());
-//
-//
-//                context.startActivity(inte_detail);
+                result[position].setIsRead(true);
+
+                notifyDataSetChanged();
+                Intent inte_detail = new Intent(context, Details_mail.class);
+                inte_detail.putExtra("id", result[position].getConversationID());
+                inte_detail.putExtra("isImp", result[position].isImp());
+
+
+                context.startActivity(inte_detail);
             }
         });
 
 
         return rowView;
+    }
+
+    @Override
+    public void onRequestSuccess(int method, String response) {
+
+        switch (method) {
+            case 1:
+                if (bool) {
+
+                    context.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            new Toast(context, "You marked this as important.").show();
+                        }
+                    });
+                } else {
+                    context.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            new Toast(context, "You marked this as Unimportant.").show();
+                        }
+                    });
+                }
+
+                break;
+        }
+
+    }
+
+    @Override
+    public void onRequestFail(int method, String message) {
+        context.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                new Toast(context, "Something went wrong . Check N.w connection.").show();
+            }
+        });
+
+    }
+
+    @Override
+    public void onStatus404() {
+        context.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                new Toast(context, "You are a invalid user").show();
+                new PrefUtils().saveToPrefs(context, "IsLoggedIn", "0");
+                Intent i = new Intent(context, Login.class);
+                context.startActivity(i);
+                context.finish();
+            }
+        });
     }
 
 
@@ -190,58 +254,31 @@ public class MailAdapter extends BaseAdapter {
     }
 
 
-//    public void markImp(int reply, boolean type) {
-//
-//        SoapObject obj = new SoapObject("http://tempuri.org/", "MailOperations");
-//
-//        JSONObject object = new JSONObject();
-//        try {
-//
-//            object.put("SimNumber", new PrefUtils().getFromPrefs(context, "SimNumber", ""));
-//            object.put("UDID", new PrefUtils().getFromPrefs(context, "UDID", ""));
-//            object.put("isNew", false);
-//            object.put("ConversationID", result[reply].getConversationID());
-//            object.put("LoyltyID", new PrefUtils().getFromPrefs(context, new PrefUtils().LoyaltyId, ""));
-//            object.put("OperationID", 1);
-//            object.put("IsImportant", type);
-//
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        PropertyInfo mPropertyInfo = new PropertyInfo();
-//        mPropertyInfo.setName("data");
-//        mPropertyInfo.setValue(object.toString());
-//        obj.addProperty(mPropertyInfo);
-//        Listener_service Listener_service = new Listener_service() {
-//            @Override
-//            public void onRequestSuccess(int method, String response) {
-//
-//                context.runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Toast.makeText(context, "You marked this as imp.", Toast.LENGTH_LONG).show();
-//
-//
-//                    }
-//                });
-//
-//            }
-//
-//            @Override
-//            public void onRequestFail(int method, String message) {
-//                context.runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Toast.makeText(context, "Unable To process request .", Toast.LENGTH_LONG).show();
-//                    }
-//                });
-//
-//            }
-//        };
-//        new PostData_fragment(1, obj, "MailOperations", context, Listener_service).execute();
-//
-//    }
+    public void markImp(int reply, boolean type) {
+//        MailOperations
+
+        bool = type;
+        JSONObject object = new JSONObject();
+        try {
+
+            object.put("SimNumber", new PrefUtils().getFromPrefs(context, PrefUtils.SimNumber, ""));
+            object.put("UDID", new PrefUtils().getFromPrefs(context, PrefUtils.UDID, ""));
+            object.put("isNew", false);
+            object.put("ConversationID", result[reply].getConversationID());
+            object.put("LoyltyID", new PrefUtils().getFromPrefs(context, new PrefUtils().LoyaltyId, ""));
+            object.put("OperationID", 1);
+            object.put("IsImportant", type);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        new PostData(1, object.toString(), "MailOperations", context).execute();
+
+
+    }
 
 
 }

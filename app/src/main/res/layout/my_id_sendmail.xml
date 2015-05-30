@@ -58,7 +58,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:text="Company"
                     android:textColor="#ff3db56c" />
 
@@ -66,7 +66,7 @@
 
                     android:id="@+id/spinner_cmpytype"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="40dp"
                     android:layout_margin="10dp"
                     android:background="@drawable/dropmeu_bg"
                     android:drawSelectorOnTop="true"
@@ -75,7 +75,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:text="Message Tpye"
                     android:textColor="#ff3db56c" />
 
@@ -83,7 +83,7 @@
 
                     android:id="@+id/spinner_msgtype"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="40dp"
                     android:layout_margin="10dp"
                     android:background="@drawable/dropmeu_bg"
                     android:drawSelectorOnTop="true"
@@ -93,7 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:text="Subject"
                     android:textColor="#ff3db56c" />
 
@@ -102,7 +102,7 @@
                     android:id="@+id/edittext_subject"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/editBox_height"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:background="@drawable/ed_shape"
                     android:hint="Subject"
 
@@ -113,7 +113,7 @@
                     android:id="@+id/edittext_description"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/ed_shape"
                     android:gravity="left|start"
