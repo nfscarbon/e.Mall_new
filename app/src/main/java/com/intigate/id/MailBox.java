@@ -112,6 +112,15 @@ public class MailBox extends ActionBarActivity implements Listener_service {
 
         list_mail = (ListView) findViewById(R.id.list_mail);
         img_writemail = (ImageButton) findViewById(R.id.img_writemail);
+        img_writemail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i_sendMial = new Intent(MailBox.this, SendMail.class);
+                startActivity(i_sendMial);
+                overridePendingTransition(0, 0);
+
+            }
+        });
         lv = (ListView) findViewById(R.id.list_mail);
         getMail();
     }

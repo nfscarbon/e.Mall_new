@@ -38,6 +38,10 @@
 
         <activity
             android:name="com.intigate.id.MyId"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.intigate.id.SendMail"
             android:screenOrientation="portrait">
 
         </activity>
