@@ -57,6 +57,7 @@ public class MyId extends ActionBarActivity implements Listener_service {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
+        //Rd
         setContentView(R.layout.activity_my_id);
         getSupportActionBar().hide();
         setUpFooter();
