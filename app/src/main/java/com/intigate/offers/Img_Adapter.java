@@ -12,14 +12,14 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Vector;
 
-public class ImageAdapter extends BaseAdapter {
+public class Img_Adapter extends BaseAdapter {
 
     Vector<String> img;
     LayoutInflater inflater;
     Context context;
 
 
-    public ImageAdapter(Context context, Vector<String> img) {
+    public Img_Adapter(Context context, Vector<String> img) {
         this.img = img;
         this.context = context;
         inflater = LayoutInflater.from(this.context);        // only context can also be used
@@ -51,14 +51,10 @@ public class ImageAdapter extends BaseAdapter {
             mViewHolder = (MyViewHolder) convertView.getTag();
         }
 
-       /* mViewHolder.tvTitle = detail(convertView, R.id.tvTitle, myList.get(position).getTitle());
-        mViewHolder.tvDesc = detail(convertView, R.id.tvDesc, myList.get(position).getDescription());
-        mViewHolder.ivIcon = detail(convertView, R.id.ivIcon, myList.get(position).getImgResId());*/
+
 
 
         Picasso.with(context).load(img.elementAt(position)).placeholder(R.drawable.icon_main).into(mViewHolder.ivIcon);
-
-
         return convertView;
     }
 

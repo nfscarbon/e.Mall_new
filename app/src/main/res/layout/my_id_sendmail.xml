@@ -16,12 +16,12 @@
         <ImageView
             android:id="@+id/_iv_back"
 
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
 
             android:onClick="close"
-            android:padding="12dp"
+            android:padding="2dp"
             android:src="@drawable/back_button" />
 
         <TextView
