@@ -39,8 +39,7 @@
         <activity
             android:name="com.intigate.id.MyId"
             android:screenOrientation="portrait" />
-<<<<<<< HEAD
-=======
+
 
 
         <activity
@@ -53,7 +52,7 @@
         <activity
             android:name="com.intigate.points.Activity_my_points"
             android:screenOrientation="portrait"></activity>
->>>>>>> 7e3662636a965138f6032cd0c83f6d31a1f2cd3f
+
 
         <activity
             android:name="com.intigate.id.SendMail"

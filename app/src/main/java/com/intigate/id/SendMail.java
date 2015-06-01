@@ -108,7 +108,6 @@ public class SendMail extends Activity implements Listener_service {
     public void getCom() {
 
 
-
         JSONObject object = new JSONObject();
         try {
 
@@ -119,16 +118,13 @@ public class SendMail extends Activity implements Listener_service {
         } catch (Exception e) {
             e.printStackTrace();
         }
-<<<<<<< HEAD
-        new PostData(2, object.toString(), "GetCompany", SendMail.this);
-=======
-       new PostData(2,object.toString(),"GetCompany",SendMail.this).execute();
->>>>>>> 7e3662636a965138f6032cd0c83f6d31a1f2cd3f
+
+        new PostData(2, object.toString(), "GetCompany", SendMail.this).execute();
+
 
     }
 
     public void getMailType() {
-
 
 
         JSONObject object = new JSONObject();
