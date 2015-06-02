@@ -52,11 +52,9 @@
             android:name="com.intigate.points.Activity_my_points"
             android:screenOrientation="portrait"></activity>
 
-
         <activity
             android:name="com.intigate.points.RedeemMyPoint_Detail"
             android:screenOrientation="portrait"></activity>
-
 
         <activity
             android:name="com.intigate.id.SendMail"

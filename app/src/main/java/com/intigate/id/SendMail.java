@@ -106,7 +106,6 @@ public class SendMail extends Activity implements Listener_service {
     public void getCom() {
 
 
-
         JSONObject object = new JSONObject();
         try {
 
@@ -120,13 +119,15 @@ public class SendMail extends Activity implements Listener_service {
 
 
 
-       new PostData(2,object.toString(),"GetCompany",SendMail.this).execute();
+
+
+        new PostData(2, object.toString(), "GetCompany", SendMail.this).execute();
+
 
 
     }
 
     public void getMailType() {
-
 
 
         JSONObject object = new JSONObject();
