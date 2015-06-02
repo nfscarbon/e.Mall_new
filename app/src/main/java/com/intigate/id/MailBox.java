@@ -1,30 +1,23 @@
 package com.intigate.id;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.intigate.ratnav.emall_new.MainActivity;
-import com.intigate.ratnav.emall_new.R;
+import com.intigate.emall.MainActivity;
+import com.intigate.emall.R;
 import com.intigate.setup.Login;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.ksoap2.serialization.PropertyInfo;
-import org.ksoap2.serialization.SoapObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="2dp"
+
+            android:id="@+id/r_tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="by ratan" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="24 August 2014" />
+    </RelativeLayout>
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="10dp"
+        android:numStars="5"
+        android:isIndicator="true"
+        android:progressDrawable="@drawable/start_selector"
+        android:stepSize="1" />
+
+    <TextView
+        android:id="@+id/comment"
+        android:layout_marginTop="10dp"
+        android:text="Comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

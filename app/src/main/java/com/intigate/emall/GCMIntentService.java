@@ -1,4 +1,4 @@
-package utils;
+package com.intigate.emall;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -11,7 +11,6 @@ import android.os.Build;
 import android.util.Log;
 
 import com.google.android.gcm.GCMBaseIntentService;
-import com.intigate.ratnav.emall_new.R;
 
 import org.json.JSONObject;
 
@@ -19,6 +18,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Random;
+
+import utils.PrefUtils;
 
 
 public class GCMIntentService extends GCMBaseIntentService {
@@ -61,7 +62,7 @@ public class GCMIntentService extends GCMBaseIntentService {
     @Override
     protected void onMessage(Context context, Intent intent) {
         Log.i(TAG, "Received message");
-        Log.i(TAG, intent.getStringExtra("message"));
+        Log.i(TAG, ""+intent.getStringExtra("message"));
         this.context = context;
 
 

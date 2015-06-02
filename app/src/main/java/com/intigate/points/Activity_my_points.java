@@ -3,23 +3,18 @@ package com.intigate.points;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.intigate.ratnav.emall_new.R;
+import com.intigate.emall.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.ksoap2.serialization.PropertyInfo;
-import org.ksoap2.serialization.SoapObject;
-
 
 import listner.Listener_service;
 import listner.PostData;
@@ -30,7 +25,7 @@ import utils.ProgressHUD;
  * Created by ratnav on 26-05-2015.
  */
 public class Activity_my_points extends ActionBarActivity implements View.OnClickListener, DialogInterface.OnCancelListener, Listener_service {
-    TextView title,tv_totla_points_top;
+    TextView title, tv_totla_points_top;
     Button my_points_b_transaction_history, my_points_b_total_by_cmp;
     ProgressHUD dialog;
     ListView my_points_container;
@@ -44,7 +39,7 @@ public class Activity_my_points extends ActionBarActivity implements View.OnClic
     Adapter_transactionHistory Adapter_transactionHistory = null;
     Adapter_transaction_cmp Adapter_transaction_cmp = null;
     int totalPoints = 0;
-    LinearLayout ll_redeem, ll_total_header, ll_total,ll_tabll_top_total_points;
+    LinearLayout ll_redeem, ll_total_header, ll_total, ll_tabll_top_total_points, ll_coupons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,16 +49,26 @@ public class Activity_my_points extends ActionBarActivity implements View.OnClic
         setContentView(R.layout.activity_my_points);
         getSupportActionBar().hide();
         ll_redeem = (LinearLayout) findViewById(R.id.ll_redeem);
+        ll_coupons = (LinearLayout) findViewById(R.id.ll_coupons);
         ll_total_header = (LinearLayout) findViewById(R.id.ll_total_header);
         ll_total = (LinearLayout) findViewById(R.id.ll_total);
-        ll_tabll_top_total_points=(LinearLayout)findViewById(R.id.ll_tabll_top_total_points);
-        tv_totla_points_top=(TextView)findViewById(R.id.tv_totla_points_top);
+        ll_tabll_top_total_points = (LinearLayout) findViewById(R.id.ll_tabll_top_total_points);
+        tv_totla_points_top = (TextView) findViewById(R.id.tv_totla_points_top);
         ll_redeem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent i_ll_redeem = new Intent(Activity_my_points.this, Activity_redeem_points.class);
-//                startActivity(i_ll_redeem);
-//                overridePendingTransition(0, 0);
+                Intent i_ll_redeem = new Intent(Activity_my_points.this, Redeem_MyPoints.class);
+                startActivity(i_ll_redeem);
+                overridePendingTransition(0, 0);
+            }
+        });
+
+        ll_coupons.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i_ll_morepoint = new Intent(Activity_my_points.this, GetMorePoints.class);
+                startActivity(i_ll_morepoint);
+                overridePendingTransition(0, 0);
             }
         });
         setUpHeader();
@@ -313,7 +318,7 @@ public class Activity_my_points extends ActionBarActivity implements View.OnClic
                         Activity_my_points.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                tv_totla_points_top.setText(""+totalPoints);
+                                tv_totla_points_top.setText("" + totalPoints);
                             }
                         });
                         if (arr.getJSONObject(i).getInt("OperationsTypeId") == 1) {

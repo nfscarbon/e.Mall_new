@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.intigate.ratnav.emall_new">
+    package="com.intigate.emall">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -15,9 +15,9 @@
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <permission
-        android:name="com.intigate.ratnav.emall_new.permission.C2D_MESSAGE"
+        android:name="com.intigate.emall.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
-    <uses-permission android:name="com.intigate.ratnav.emall_new.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.intigate.emall.permission.C2D_MESSAGE" />
 
     <application
         android:allowBackup="true"
@@ -39,8 +39,6 @@
         <activity
             android:name="com.intigate.id.MyId"
             android:screenOrientation="portrait" />
-<<<<<<< HEAD
-=======
 
 
         <activity
@@ -53,7 +51,12 @@
         <activity
             android:name="com.intigate.points.Activity_my_points"
             android:screenOrientation="portrait"></activity>
->>>>>>> 7e3662636a965138f6032cd0c83f6d31a1f2cd3f
+
+
+        <activity
+            android:name="com.intigate.points.RedeemMyPoint_Detail"
+            android:screenOrientation="portrait"></activity>
+
 
         <activity
             android:name="com.intigate.id.SendMail"
@@ -74,6 +77,13 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.intigate.points.Redeem_MyPoints"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name="com.intigate.points.GetMorePoints"
+            android:screenOrientation="portrait"></activity>
 
         <activity
             android:name="com.intigate.offers.Offers"
@@ -85,6 +95,19 @@
 
             ></activity>
 
+
+        <activity
+            android:name="com.intigate.coupans.MyCoupans"
+            android:screenOrientation="portrait"
+
+
+            ></activity>
+        <activity
+            android:name="com.intigate.coupans.Redeem_coupan"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name="com.intigate.offers.Offer_reviews"></activity>
+
+        <service android:name=".GCMIntentService"></service>
         <receiver
             android:name="com.google.android.gcm.GCMBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND">

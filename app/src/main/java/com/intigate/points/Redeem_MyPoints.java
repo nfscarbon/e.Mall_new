@@ -1,4 +1,4 @@
-package com.intigate.offers;
+package com.intigate.points;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.Spinner;
 
+import com.intigate.offers.ImageAdapter;
 import com.intigate.emall.R;
 import com.intigate.setup.Login;
 
@@ -23,25 +24,27 @@ import listner.Toast;
 import utils.PrefUtils;
 
 
-public class Offers extends Activity implements Listener_service {
+public class Redeem_MyPoints extends Activity implements Listener_service {
 
     Vector<Integer> v_id = null;
 
     Spinner spinner1;
     Vector<String> imgUrl;
-    Vector<Integer> OfferId;
+    Vector<Integer> CopupanId;
+    Vector<Integer> CompanyId;
+    Vector<Integer> Coupantotal;
     GridView grid_offers;
 
 
     ArrayAdapter<String> adapter_spinner_cmp;
     ImageAdapter adapter;
     boolean chk = true;
-
+    Listener_service Listener_service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.offers);
+        setContentView(R.layout.redeem_mypoints);
         if (v_id == null) {
             v_id = new Vector<>();
             spinner1 = (Spinner) findViewById(R.id.spinner1);
@@ -55,6 +58,26 @@ public class Offers extends Activity implements Listener_service {
             spinner1.setAdapter(adapter_spinner_cmp);
             grid_offers = (GridView) findViewById(R.id.grid_offers);
             grid_offers.setAdapter(adapter);
+//           grid_offers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//                    // ((Container) getActivity()).showItemDetails(OfferId.get(i));
+//
+//                    chk = true;
+//                }
+//            });
+          /*  grid_offers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent inten_detal = new Intent(Offers.this, Offers_Detail.class);
+                    inten_detal.putExtra("id", OfferId.get(position));
+                    startActivity(inten_detal);
+                    new Toast(getApplicationContext(), ""+OfferId.get(position)).show();
+
+
+                }
+            });*/
 
 
             spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -94,8 +117,19 @@ public class Offers extends Activity implements Listener_service {
         } catch (Exception e) {
         }
 
+     /* Listener_service = new Listener_service() {
+            @Override
+            public void onRequestSuccess(int method, String response) {
 
-        new PostData(0, object.toString(), "GetCompany", Offers.this).execute();
+                setUpSpinner(method, response);
+            }
+
+            @Override
+            public void onRequestFail(int method, String message) {
+
+            }
+        };*/
+        new PostData(0, object.toString(), "GetCompany", Redeem_MyPoints.this).execute();
 
     }
 
@@ -158,7 +192,9 @@ public class Offers extends Activity implements Listener_service {
 
     public void setUpGrid(String response) {
         imgUrl = new Vector<>();
-        OfferId = new Vector<>();
+        CopupanId = new Vector<>();
+        CompanyId= new Vector<>();
+        Coupantotal=new Vector<>();
         try {
             JSONArray arr = new JSONArray(response);
 
@@ -174,8 +210,10 @@ public class Offers extends Activity implements Listener_service {
 
                     break;
                 }
-                imgUrl.add(arr.getJSONObject(i).getString("OfferImagePath"));
-                OfferId.add(arr.getJSONObject(i).getInt("OfferId"));
+                imgUrl.add(arr.getJSONObject(i).getString("CouponImagePath"));
+                CopupanId.add(arr.getJSONObject(i).getInt("CouponId"));
+                CompanyId.add(arr.getJSONObject(i).getInt("CompanyId"));
+                Coupantotal.add(arr.getJSONObject(i).getInt("Points"));
             }
 
             adapter = new ImageAdapter(getApplicationContext(), imgUrl);
@@ -190,10 +228,14 @@ public class Offers extends Activity implements Listener_service {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+//                    ((Container) getApplicationContext()).showItemDetails(OfferId.get(i));
 
+                    Intent inten_detal = new Intent(Redeem_MyPoints.this, RedeemMyPoint_Detail.class);
+                    inten_detal.putExtra("id", CopupanId.get(i));
+                    inten_detal.putExtra("idtotal", Coupantotal.get(i));
+                    inten_detal.putExtra("img", imgUrl.get(i));
+                    inten_detal.putExtra("CompanyId", CompanyId.get(i));
 
-                    Intent inten_detal = new Intent(Offers.this, Offers_Detail.class);
-                    inten_detal.putExtra("id", OfferId.get(i));
                     startActivity(inten_detal);
 
                     chk = true;
@@ -225,7 +267,20 @@ public class Offers extends Activity implements Listener_service {
             e.printStackTrace();
         }
 
-        new PostData(10, object.toString(), "GetOffers", Offers.this).execute();
+//        Listener_service Listener_service = new Listener_service() {
+//            @Override
+//            public void onRequestSuccess(int method, String response) {
+//                Log.e("setUpGrid", response);
+//                setUpGrid(response);
+//                dialog.dismiss();
+//            }
+//
+//            @Override
+//            public void onRequestFail(int method, String message) {
+//
+//            }
+//        };
+        new PostData(10, object.toString(), "GetCoupons", Redeem_MyPoints.this).execute();
     }
 
 
@@ -246,7 +301,7 @@ public class Offers extends Activity implements Listener_service {
     @Override
     public void onRequestFail(int method, String message) {
 
-        Offers.this.runOnUiThread(new Runnable() {
+        Redeem_MyPoints.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 new Toast(getApplicationContext(), "Please check your N/w Connection").show();
@@ -257,12 +312,12 @@ public class Offers extends Activity implements Listener_service {
 
     @Override
     public void onStatus404() {
-        Offers.this.runOnUiThread(new Runnable() {
+        Redeem_MyPoints.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 new Toast(getApplicationContext(), "You are a invalid user").show();
                 new PrefUtils().saveToPrefs(getApplicationContext(), "IsLoggedIn", "0");
-                Intent i = new Intent(Offers.this, Login.class);
+                Intent i = new Intent(Redeem_MyPoints.this, Login.class);
                 startActivity(i);
                 finish();
             }

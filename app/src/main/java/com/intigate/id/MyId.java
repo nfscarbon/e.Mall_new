@@ -22,7 +22,7 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
-import com.intigate.ratnav.emall_new.R;
+import com.intigate.emall.R;
 import com.intigate.setup.Login;
 import com.squareup.picasso.Picasso;
 
@@ -52,7 +52,7 @@ public class MyId extends ActionBarActivity implements Listener_service {
     TextView tv_id_unumber;
     Random rand = new Random();
     utils.VerticalTextView tv_userName;
-//hiiiiiiiiiiiiiiiiiiiiii
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,7 +111,7 @@ public class MyId extends ActionBarActivity implements Listener_service {
             int height = point.y;
             int smallerDimension = width < height ? width : height;
             smallerDimension = smallerDimension * 3 / 4;
-            ;
+
             Matrix matrix = new Matrix();
 
             matrix.postRotate(90);

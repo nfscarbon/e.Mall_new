@@ -15,7 +15,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.intigate.ratnav.emall_new.R;
+import com.intigate.emall.R;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
@@ -36,19 +36,34 @@ public class Offers_Detail extends Activity implements Listener_service, Dialog.
     JSONObject j_obj;
     ImageView imageView_offerdetails;
     TextView text_total_like;
-    ImageView share;
+    ImageView share, comment;
     Button btn_comment;
     EditText editText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.offer_details);
+
+        comment=(ImageView)findViewById(R.id.comment);
+        comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moveToComment();
+            }
+        });
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         context = this;
         imageView_offerdetails = (ImageView) findViewById(R.id.imageView_offerdetails);
         editText = (EditText) findViewById(R.id.editText);
         text_total_like = (TextView) findViewById(R.id.text_total_like);
+        text_total_like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moveToComment();
+            }
+        });
         share = (ImageView) findViewById(R.id.share);
    /*     share.setOnClickListener(new View.OnClickListener() {
 
@@ -97,8 +112,8 @@ public class Offers_Detail extends Activity implements Listener_service, Dialog.
         JSONObject object = new JSONObject();
         try {
 
-            object.put("SimNumber", new PrefUtils().getFromPrefs(context.getApplicationContext(), "SimNumber", ""));
-            object.put("UDID", new PrefUtils().getFromPrefs(context.getApplicationContext(), "UDID", ""));
+            object.put("SimNumber", new PrefUtils().getFromPrefs(context.getApplicationContext(), PrefUtils.SimNumber, ""));
+            object.put("UDID", new PrefUtils().getFromPrefs(context.getApplicationContext(), PrefUtils.UDID, ""));
             object.put("LoyltyID", new PrefUtils().getFromPrefs(context.getApplicationContext(), new PrefUtils().LoyaltyId, ""));
             object.put("OfferId", "" + getIntent().getExtras().getInt("id"));
 
@@ -301,6 +316,24 @@ public class Offers_Detail extends Activity implements Listener_service, Dialog.
         };*/
         new PostData(10, object.toString(), "SetOffersReviews", Offers_Detail.this
         ).execute();
+
+    }
+
+
+    public void moveToComment() {
+
+        Intent i = new Intent(Offers_Detail.this, Offer_reviews.class);
+
+        try {
+            i.putExtra("id", getIntent().getExtras().getInt("id"));
+            i.putExtra("rating", j_obj.getInt("Rating"));
+            i.putExtra("title", j_obj.getString("Subject"));
+
+            startActivity(i);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 }

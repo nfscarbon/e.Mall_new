@@ -1,15 +1,13 @@
-package com.intigate.ratnav.emall_new;
+package com.intigate.emall;
 
 import android.content.Intent;
-import android.graphics.Typeface;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.intigate.coupans.MyCoupans;
 import com.intigate.id.MyId;
 import com.intigate.offers.Offers;
 import com.intigate.points.Activity_my_points;
@@ -20,7 +18,7 @@ import utils.Fonts;
 public class MainActivity extends ActionBarActivity {
 
     TextView tv_title;
-    LinearLayout ll_myId, ll_offers, ll_myPoints;
+    LinearLayout ll_myId, ll_offers, ll_myPoints, ll_mycoupans;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +62,14 @@ public class MainActivity extends ActionBarActivity {
 
     private void setUpFooter() {
         ll_myId = (LinearLayout) findViewById(R.id.ll_myProfile);
+        ll_mycoupans = (LinearLayout) findViewById(R.id.ll_mycoupans);
+        ll_mycoupans.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent inte_mycoupan = new Intent(MainActivity.this, MyCoupans.class);
+                startActivity(inte_mycoupan);
+            }
+        });
         ll_myId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

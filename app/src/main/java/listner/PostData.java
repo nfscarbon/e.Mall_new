@@ -29,8 +29,8 @@ public class PostData extends AsyncTask implements OnCancelListener {
     ProgressHUD dialog;
     String request;
     //    String URL = "http://122.160.137.122/emallservice/eMallService.asmx";
-    String URL = "http://192.168.1.13/emallservice/eMallService.asmx";
-   //    String URL="http://182.50.142.154:59/eMallService.asmx";
+   // String URL = "http://192.168.1.13/emallservice/eMallService.asmx";
+      String URL="http://182.50.142.154:59/eMallService.asmx";
     String MethodName;
     Listener_service mListener_service;
     int Method;

@@ -11,13 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.intigate.ratnav.emall_new.R;
+import com.intigate.emall.R;
 import com.intigate.setup.Login;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.ksoap2.serialization.PropertyInfo;
-import org.ksoap2.serialization.SoapObject;
 
 import java.util.Vector;
 
@@ -119,11 +117,11 @@ public class SendMail extends Activity implements Listener_service {
         } catch (Exception e) {
             e.printStackTrace();
         }
-<<<<<<< HEAD
-        new PostData(2, object.toString(), "GetCompany", SendMail.this);
-=======
+
+
+
        new PostData(2,object.toString(),"GetCompany",SendMail.this).execute();
->>>>>>> 7e3662636a965138f6032cd0c83f6d31a1f2cd3f
+
 
     }
 

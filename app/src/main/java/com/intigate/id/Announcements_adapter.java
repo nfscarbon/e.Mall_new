@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.intigate.ratnav.emall_new.R;
+import com.intigate.emall.R;
 import com.squareup.picasso.Picasso;
 
 

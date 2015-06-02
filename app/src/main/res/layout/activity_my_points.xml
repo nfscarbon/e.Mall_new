@@ -15,24 +15,21 @@
 
 
         <ImageView
-            android:id="@+id/_iv_back"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
             android:onClick="back"
-            android:padding="10dp"
+            android:padding="2dp"
             android:src="@drawable/back_button" />
 
         <TextView
-            android:id="@+id/_title"
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="My Points"
-            android:textColor="#fff" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFF" />
 
     </RelativeLayout>
 
@@ -73,11 +70,7 @@
         android:layout_alignParentBottom="true"
         android:background="#A7A7AA"
         android:gravity="center"
-
-        android:orientation="horizontal"
-
-
-        >
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/ll_redeem"
